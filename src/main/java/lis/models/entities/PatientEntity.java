@@ -1,7 +1,10 @@
 package lis.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lis.base.BaseEntity;
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.sql.Date;
 import java.util.List;
@@ -10,7 +13,8 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "patient")
-public class PatientEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class PatientEntity implements BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
@@ -28,8 +32,11 @@ public class PatientEntity {
     @Column(name = "jmbg", nullable = false, length = 13)
     private String jmbg;
     @Basic
-    @Column(name = "adress", nullable = false, length = 100)
-    private String adress;
+    @Column(name = "gender",nullable = false,length = 6)
+    private String gender;
+    @Basic
+    @Column(name = "address", nullable = false, length = 100)
+    private String address;
     @Basic
     @Column(name = "phone", nullable = false, length = 15)
     private String phone;
@@ -40,5 +47,6 @@ public class PatientEntity {
     @Column(name = "family_doctor", nullable = false, length = 45)
     private String familyDoctor;
     @OneToMany(mappedBy = "patient")
+    @JsonIgnore
     private List<MedicalRecordEntity> medicalRecords;
 }

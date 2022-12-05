@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Getter
-public class CrudJpaService <E extends BaseEntity<ID>,ID extends Serializable> implements CrudService<ID> {
+public class CrudJpaService<E extends BaseEntity<ID>,ID extends Serializable> implements CrudService<ID> {
     private final JpaRepository<E,ID> repository;
     private final Class<E> entityClass;
     private final ModelMapper modelMapper;
     @PersistenceContext
     private EntityManager entityManager;
 
-    public CrudJpaService(JpaRepository<E, ID> repository, Class<E> entityClass, ModelMapper modelMapper) {
+    public CrudJpaService(JpaRepository<E, ID> repository, ModelMapper modelMapper, Class<E> entityClass) {
         this.repository = repository;
         this.entityClass = entityClass;
         this.modelMapper = modelMapper;

@@ -2,11 +2,14 @@ package lis.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Objects;
 @Data
 @Entity
 @Table(name = "hematology")
+@EntityListeners(AuditingEntityListener.class)
+
 public class HematologyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

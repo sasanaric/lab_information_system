@@ -2,11 +2,14 @@ package lis.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Objects;
 @Data
 @Entity
 @Table(name = "medical_record")
+@EntityListeners(AuditingEntityListener.class)
+
 public class MedicalRecordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -16,23 +19,8 @@ public class MedicalRecordEntity {
     @Column(name = "icd", nullable = false, length = 20)
     private String icd;
     @Basic
-    @Column(name = "hematology_id", nullable = true)
-    private Integer hematologyId;
-    @Basic
-    @Column(name = "urine_id", nullable = true)
-    private Integer urineId;
-    @Basic
-    @Column(name = "biochemistry_id", nullable = true)
-    private Integer biochemistryId;
-    @Basic
-    @Column(name = "patient_id", nullable = false)
-    private Integer patientId;
-    @Basic
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
-    @Basic
     @Column(name = "is_valid", nullable = true)
-    private Byte isValid;
+    private String isValid;
     @OneToOne
     @JoinColumn(name = "hematology_id", referencedColumnName = "id")
     private HematologyEntity hematology;

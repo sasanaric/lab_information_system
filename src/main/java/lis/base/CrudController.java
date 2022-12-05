@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Getter
-public abstract class CrudController <ID extends Serializable,REQ,RESP> {
+public abstract class CrudController<ID extends Serializable,REQ,RESP> {
     private final Class<RESP> respClass;
     private final CrudService<ID> crudService;
 
@@ -17,10 +17,12 @@ public abstract class CrudController <ID extends Serializable,REQ,RESP> {
         this.respClass = respClass;
         this.crudService = crudService;
     }
+
     @GetMapping
-    List<RESP> findAll(){
+    List<RESP> findAll() {
         return crudService.findAll((respClass));
     }
+
     @GetMapping("/{id}")
     public RESP findById(@PathVariable ID id) throws NotFoundException {
         return crudService.findById(id, respClass);

@@ -2,12 +2,15 @@ package lis.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Objects;
 
 @Data
 @Entity
 @Table(name = "urine")
+@EntityListeners(AuditingEntityListener.class)
+
 public class UrineEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
