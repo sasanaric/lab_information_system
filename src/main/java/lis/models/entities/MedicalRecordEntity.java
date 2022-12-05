@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Objects;
 @Data
 @Entity
-@Table(name = "medical_record", schema = "lab_information_system", catalog = "")
+@Table(name = "medical_record")
 public class MedicalRecordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

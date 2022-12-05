@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Objects;
 @Data
 @Entity
-@Table(name = "biochemistry", schema = "lab_information_system", catalog = "")
+@Table(name = "biochemistry")
 public class BiochemistryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

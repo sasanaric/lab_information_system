@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "urine", schema = "lab_information_system", catalog = "")
+@Table(name = "urine")
 public class UrineEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
