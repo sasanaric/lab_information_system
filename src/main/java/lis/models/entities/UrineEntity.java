@@ -1,6 +1,7 @@
 package lis.models.entities;
 
 import jakarta.persistence.*;
+import lis.base.BaseEntity;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Table(name = "urine")
 @EntityListeners(AuditingEntityListener.class)
 
-public class UrineEntity {
+public class UrineEntity implements BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
