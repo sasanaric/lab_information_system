@@ -1,6 +1,7 @@
 package lis.models.entities;
 
 import jakarta.persistence.*;
+import lis.base.BaseEntity;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -10,7 +11,7 @@ import java.util.Objects;
 @Table(name = "medical_record")
 @EntityListeners(AuditingEntityListener.class)
 
-public class MedicalRecordEntity {
+public class MedicalRecordEntity implements BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
