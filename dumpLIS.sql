@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `biochemistry`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `biochemistry` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `s-glucose` decimal(10,0) NOT NULL,
   `s-urea` decimal(10,0) NOT NULL,
   `s-creatinine` int NOT NULL,
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `hematology`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hematology` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `leukocytes` decimal(10,0) NOT NULL,
   `erythrocytes` decimal(10,0) NOT NULL,
   `hemaglobin` decimal(10,0) NOT NULL,
@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `medical_record`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `medical_record` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `icd` varchar(20) NOT NULL,
   `is_valid` varchar(45) NOT NULL,
   `hematology_id` int DEFAULT NULL,
@@ -116,7 +116,7 @@ DROP TABLE IF EXISTS `patient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `patient` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `birth_date` date NOT NULL,
@@ -148,7 +148,7 @@ DROP TABLE IF EXISTS `urine`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `urine` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `u-proteins` varchar(60) NOT NULL,
   `urine_sediment` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -172,7 +172,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
