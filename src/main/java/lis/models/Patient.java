@@ -7,7 +7,6 @@ import java.sql.Date;
 
 @Data
 public class Patient {
-    private Integer id;
     private String firstName;
     private String lastName;
     private Date birthDate;

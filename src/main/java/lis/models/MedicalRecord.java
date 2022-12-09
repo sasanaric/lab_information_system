@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 public class MedicalRecord {
-    private Integer id;
     private String icd;
     private String isValid;
     private Integer hematologyId;
