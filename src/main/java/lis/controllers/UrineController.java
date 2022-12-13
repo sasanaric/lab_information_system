@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
-@RequestMapping("/results/urine")
+@RequestMapping("/urines")
 public class UrineController extends CrudController<Integer, UrineRequest, Urine> {
     public UrineController(UrineService service) {
         super(Urine.class,service);

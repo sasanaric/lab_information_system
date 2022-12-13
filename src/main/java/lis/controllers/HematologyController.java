@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
-@RequestMapping("/results/hematology")
+@RequestMapping("/hematologies")
 public class HematologyController extends CrudController<Integer, HematologyRequest, Hematology> {
     public HematologyController(HematologyService service) {
         super(Hematology.class,service);
