@@ -51,7 +51,5 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
         service.delete(id);
-
-
     }
 }
