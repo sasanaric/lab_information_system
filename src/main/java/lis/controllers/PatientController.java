@@ -24,10 +24,16 @@ public class PatientController {
     public List<Patient> findAll(){
         return patientService.findAll(Patient.class);
     }
-//    @GetMapping("/{id}")
-//    public SinglePatient findById(@PathVariable Integer id) throws NotFoundException {
-//        return patientService.findById(id,SinglePatient.class);
-//    }
+
+    @GetMapping("/single-patient/{id}")
+    public SinglePatient findSinglePatientById(@PathVariable Integer id) throws NotFoundException{
+        return patientService.findById(id, SinglePatient.class);
+    }
+
+    @GetMapping("/{id}")
+    public Patient findById(@PathVariable Integer id) throws NotFoundException {
+        return patientService.findById(id, Patient.class);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
