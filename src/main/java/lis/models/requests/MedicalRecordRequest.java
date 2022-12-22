@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lis.models.entities.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 public class MedicalRecordRequest {
     private String icd;

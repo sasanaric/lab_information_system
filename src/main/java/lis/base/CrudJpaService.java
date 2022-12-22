@@ -48,7 +48,7 @@ public class CrudJpaService<E extends BaseEntity<ID>,ID extends Serializable> im
         entity.setId(null);
         entity = repository.saveAndFlush(entity);
         entityManager.refresh(entity);
-        return modelMapper.map(object,resultDtoClass);
+        return modelMapper.map(entity ,resultDtoClass);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class CrudJpaService<E extends BaseEntity<ID>,ID extends Serializable> im
         entity.setId(id);
         entity = repository.saveAndFlush(entity);
         entityManager.refresh(entity);
-        return modelMapper.map(object,resultDtoClass);
+        return modelMapper.map(entity ,resultDtoClass);
     }
 
     public E findEntityById(ID id)throws NotFoundException{return repository.findById(id).orElseThrow(NotFoundException::new);}
