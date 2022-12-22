@@ -22,19 +22,19 @@ public class MedicalRecordEntity implements BaseEntity<Integer> {
     @Basic
     @Column(name = "is_valid", nullable = true)
     private String isValid;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hematology_id", referencedColumnName = "id")
     private HematologyEntity hematology;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "urine_id", referencedColumnName = "id")
     private UrineEntity urine;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "biochemistry_id", referencedColumnName = "id")
     private BiochemistryEntity biochemistry;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)
     private PatientEntity patient;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserEntity user;
 }
