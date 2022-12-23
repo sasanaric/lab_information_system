@@ -1,11 +1,8 @@
 package lis.controllers;
 
-import lis.base.CrudController;
 import lis.exceptions.NotFoundException;
-import lis.models.SinglePatient;
 import lis.models.SingleUser;
 import lis.models.User;
-import lis.models.requests.PatientRequest;
 import lis.models.requests.UserRequest;
 import lis.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserService service;
+    private final UserService service;
 
 
     @Autowired
@@ -51,5 +48,9 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
         service.delete(id);
+    }
+    @GetMapping("/usernames")
+    List<String> getAllUsernames(){
+        return service.getAllUsernames();
     }
 }

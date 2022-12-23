@@ -2,6 +2,8 @@ package lis.services;
 
 import lis.base.CrudService;
 
-public interface UserService extends CrudService<Integer> {
+import java.util.List;
 
+public interface UserService extends CrudService<Integer> {
+    List<String> getAllUsernames();
 }
