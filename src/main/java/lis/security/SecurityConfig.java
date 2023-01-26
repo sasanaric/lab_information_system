@@ -42,13 +42,16 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/auth/login").permitAll()
                 .requestMatchers("/medical-records/**").hasAuthority(SecurityConsts.ADMIN)
                 .requestMatchers("/hematologies/**").hasAuthority(SecurityConsts.ADMIN)
                 .requestMatchers("/urines/**").hasAuthority(SecurityConsts.ADMIN)
                 .requestMatchers("/users/**").hasAuthority(SecurityConsts.ADMIN)
                 .requestMatchers("/biochemistries/**").hasAuthority(SecurityConsts.ADMIN)
                 .requestMatchers("/patients/**").hasAuthority(SecurityConsts.ADMIN)
+                .requestMatchers("/api/auth/register").hasAuthority(SecurityConsts.ADMIN)
+                .requestMatchers("/api/auth/change-password").hasAnyAuthority(SecurityConsts.ADMIN,
+                        SecurityConsts.DOCTOR, SecurityConsts.NURSE)
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

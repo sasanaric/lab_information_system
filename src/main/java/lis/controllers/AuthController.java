@@ -11,6 +11,7 @@ import lis.models.requests.RegisterRequest;
 import lis.repositories.UserEntityRepository;
 import lis.security.JwtGenerator;
 import lis.services.UserService;
+import org.aspectj.weaver.patterns.ReferencePointcut;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,14 +50,21 @@ public class AuthController {
         this.modelMapper = modelMapper;
         this.repository = repository;
     }
-/*
+
     @PostMapping("/change-password")
-    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request){
-        Optional<UserEntity> user = repository.findByUsername(request.getUsername());
-        String currentPassword = passwordEncoder.encode(request.getOldPassword());
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) throws NotFoundException {
+        User user = modelMapper.map(repository.findByUsername(request.getUsername()), User.class);
+        String currentPassword = request.getOldPassword();
         String newPassword = request.getNewPassword();
-        if(!passwordEncoder.matches(currentPassword, ))
-    }*/
+
+        if(!passwordEncoder.matches(currentPassword, user.getPassword())){
+            return new ResponseEntity<>("Current password is incorrect", HttpStatus.NOT_FOUND);
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userService.update(user.getId(), user, User.class);
+        return new ResponseEntity<>("Current password changed", HttpStatus.OK);
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) throws NotFoundException {
