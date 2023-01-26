@@ -5,23 +5,23 @@ import lis.exceptions.NotFoundException;
 import lis.models.AuthResponse;
 import lis.models.User;
 import lis.models.entities.UserEntity;
+import lis.models.requests.ChangePasswordRequest;
 import lis.models.requests.LoginRequest;
 import lis.models.requests.RegisterRequest;
 import lis.repositories.UserEntityRepository;
 import lis.security.JwtGenerator;
-import lis.security.SecurityConfig;
 import lis.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.web.oauth2.resourceserver.JwtDsl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -32,6 +32,7 @@ public class AuthController {
     private UserService userService;
     private PasswordEncoder passwordEncoder;
     private JwtGenerator jwtGenerator;
+    private ModelMapper modelMapper;
 
     private UserEntityRepository repository;
 
@@ -40,13 +41,22 @@ public class AuthController {
                           UserService userService,
                           PasswordEncoder passwordEncoder,
                           JwtGenerator jwtGenerator,
-                          UserEntityRepository repository) {
+                          ModelMapper modelMapper, UserEntityRepository repository) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtGenerator = jwtGenerator;
+        this.modelMapper = modelMapper;
         this.repository = repository;
     }
+/*
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request){
+        Optional<UserEntity> user = repository.findByUsername(request.getUsername());
+        String currentPassword = passwordEncoder.encode(request.getOldPassword());
+        String newPassword = request.getNewPassword();
+        if(!passwordEncoder.matches(currentPassword, ))
+    }*/
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) throws NotFoundException {

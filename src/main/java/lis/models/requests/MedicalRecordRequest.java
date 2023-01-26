@@ -5,6 +5,7 @@ import lis.models.entities.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 public class MedicalRecordRequest {
@@ -15,4 +16,5 @@ public class MedicalRecordRequest {
     private Integer biochemistryId;
     private Integer patientId;
     private Integer userId;
+    private Timestamp createdTime;
 }

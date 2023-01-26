@@ -5,10 +5,11 @@ import lis.base.BaseEntity;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.sql.Timestamp;
 import java.util.Objects;
 @Data
 @Entity
-@Table(name = "medical_record")
+@Table(name = "medical_record", schema = "lab_information_system", catalog = "")
 @EntityListeners(AuditingEntityListener.class)
 
 public class MedicalRecordEntity implements BaseEntity<Integer> {
@@ -37,4 +38,7 @@ public class MedicalRecordEntity implements BaseEntity<Integer> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserEntity user;
+    @Basic
+    @Column(name = "created_time", nullable = true)
+    private Timestamp createdTime;
 }

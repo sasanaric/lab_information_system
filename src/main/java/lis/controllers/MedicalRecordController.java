@@ -5,8 +5,12 @@ import lis.models.MedicalRecord;
 import lis.models.requests.MedicalRecordRequest;
 import lis.services.MedicalRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -24,19 +28,35 @@ public class MedicalRecordController {
         return service.findAll(MedicalRecord.class);
     }
 
+   /* @GetMapping
+    Page<MedicalRecord> findAll(Pageable page) {
+       return service.findAll(page, MedicalRecord.class);
+    }*/
+
     @GetMapping("/{id}")
     public MedicalRecord getById(@PathVariable Integer id) throws NotFoundException {
         return service.findById(id, MedicalRecord.class);
     }
 
+    @GetMapping("/invalid-records")
+    public List<MedicalRecord> getInvalidRecords() {
+        return service.getAllInvalidRecords();
+    }
+
     @PostMapping()
-    public MedicalRecord insert(@RequestBody MedicalRecordRequest record) throws NotFoundException{
+    public MedicalRecord insert(@RequestBody MedicalRecordRequest record) throws NotFoundException {
+        record.setCreatedTime(new Timestamp(System.currentTimeMillis()));
         return service.insert(record, MedicalRecord.class);
     }
 
     @PutMapping("/{id}")
     public MedicalRecord update(@PathVariable Integer id, @RequestBody MedicalRecordRequest request) throws NotFoundException {
         return service.update(id, request, MedicalRecord.class);
+    }
+
+    @PostMapping("/validate/{id}")
+    public MedicalRecord validate(@PathVariable Integer id) throws NotFoundException {
+        return service.validate(id);
     }
 
     @DeleteMapping("/{id}")

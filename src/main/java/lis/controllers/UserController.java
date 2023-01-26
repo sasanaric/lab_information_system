@@ -3,10 +3,15 @@ package lis.controllers;
 import lis.exceptions.NotFoundException;
 import lis.models.SingleUser;
 import lis.models.User;
+import lis.models.UserResponse;
 import lis.models.requests.UserRequest;
 import lis.services.UserService;
+import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +31,7 @@ public class UserController {
 
     @GetMapping
     List<User> findAll() {
-        return service.findAll(User.class);
+        return service.getAllUsers();
     }
 
     @GetMapping("/{id}")
@@ -49,8 +54,19 @@ public class UserController {
     public void delete(@PathVariable Integer id) throws NotFoundException {
         service.delete(id);
     }
+
+    @GetMapping("/current-role")
+    public String getCurrentRole() {
+        return service.getCurrentRole();
+    }
     @GetMapping("/usernames")
     List<String> getAllUsernames(){
         return service.getAllUsernames();
+    }
+
+    @GetMapping("/current-user")
+    public ResponseEntity<UserResponse> getCurrentUser() {
+        UserResponse currentUser = service.getCurrentUser();
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 }

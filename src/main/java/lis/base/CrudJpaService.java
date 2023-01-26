@@ -3,6 +3,7 @@ package lis.base;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lis.exceptions.NotFoundException;
+import lis.models.User;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Getter
-public class CrudJpaService<E extends BaseEntity<ID>,ID extends Serializable> implements CrudService<ID> {
+public abstract class CrudJpaService<E extends BaseEntity<ID>,ID extends Serializable> implements CrudService<ID> {
     private final JpaRepository<E,ID> repository;
     private final Class<E> entityClass;
     private final ModelMapper modelMapper;
@@ -33,9 +34,10 @@ public class CrudJpaService<E extends BaseEntity<ID>,ID extends Serializable> im
     public <T> List<T> findAll(Class<T> resultDtoClass) {
         return repository.findAll().stream().map(e -> modelMapper.map(e,resultDtoClass)).collect(Collectors.toList());
     }
-    public <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass) {
+
+    /*public <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass) {
         return repository.findAll(page).map(e->modelMapper.map(e,resultDtoClass));
-    }
+    }*/
 
     @Override
     public <T> T findById(ID id, Class<T> resultDtoClass) throws NotFoundException {
@@ -70,4 +72,5 @@ public class CrudJpaService<E extends BaseEntity<ID>,ID extends Serializable> im
             throw new NotFoundException();
         repository.deleteById(id);
     }
+
 }

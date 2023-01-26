@@ -3,6 +3,8 @@ package lis.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 public class MedicalRecord {
     private Integer id;
@@ -13,4 +15,5 @@ public class MedicalRecord {
     private Integer biochemistryId;
     private Integer patientId;
     private Integer userId;
+    private Timestamp createdTime;
 }
