@@ -43,6 +43,12 @@ public class UserServiceImpl extends CrudJpaService<UserEntity,Integer> implemen
     }
 
     @Override
+    public Integer getCurrentId() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return repository.findIdByUsername(username);
+    }
+
+    @Override
     public List<String> getAllUsernames() {
         return repository.findAll().stream().map(UserEntity::getUsername).collect(Collectors.toList());
     }

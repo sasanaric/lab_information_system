@@ -43,12 +43,23 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/login").permitAll()
-                .requestMatchers("/medical-records/**").hasAuthority(SecurityConsts.ADMIN)
-                .requestMatchers("/hematologies/**").hasAuthority(SecurityConsts.ADMIN)
-                .requestMatchers("/urines/**").hasAuthority(SecurityConsts.ADMIN)
+                .requestMatchers("/medical-records/validate/**").hasAnyAuthority(SecurityConsts.ADMIN,
+                        SecurityConsts.DOCTOR)
+                .requestMatchers("/medical-records/**").hasAnyAuthority(SecurityConsts.ADMIN,
+                        SecurityConsts.DOCTOR, SecurityConsts.NURSE)
+
+                .requestMatchers("/hematologies/**").hasAnyAuthority(SecurityConsts.ADMIN,
+                        SecurityConsts.DOCTOR, SecurityConsts.NURSE)
+                .requestMatchers("/urines/**").hasAnyAuthority(SecurityConsts.ADMIN,
+                        SecurityConsts.DOCTOR, SecurityConsts.NURSE)
+                .requestMatchers("/users/current-role").permitAll()
+                .requestMatchers("/users/current-id").permitAll()
+                .requestMatchers("/users/current-user").permitAll()
                 .requestMatchers("/users/**").hasAuthority(SecurityConsts.ADMIN)
-                .requestMatchers("/biochemistries/**").hasAuthority(SecurityConsts.ADMIN)
-                .requestMatchers("/patients/**").hasAuthority(SecurityConsts.ADMIN)
+                .requestMatchers("/biochemistries/**").hasAnyAuthority(SecurityConsts.ADMIN,
+                        SecurityConsts.DOCTOR, SecurityConsts.NURSE)
+                .requestMatchers("/patients/**").hasAnyAuthority(SecurityConsts.ADMIN,
+                        SecurityConsts.DOCTOR, SecurityConsts.NURSE)
                 .requestMatchers("/api/auth/register").hasAuthority(SecurityConsts.ADMIN)
                 .requestMatchers("/api/auth/change-password").hasAnyAuthority(SecurityConsts.ADMIN,
                         SecurityConsts.DOCTOR, SecurityConsts.NURSE)

@@ -6,12 +6,9 @@ import lis.models.User;
 import lis.models.UserResponse;
 import lis.models.requests.UserRequest;
 import lis.services.UserService;
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,7 +60,10 @@ public class UserController {
     List<String> getAllUsernames(){
         return service.getAllUsernames();
     }
-
+    @GetMapping("/current-id")
+    public Integer getCurrentId(){
+        return service.getCurrentId();
+    }
     @GetMapping("/current-user")
     public ResponseEntity<UserResponse> getCurrentUser() {
         UserResponse currentUser = service.getCurrentUser();
