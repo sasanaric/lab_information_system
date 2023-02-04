@@ -14,6 +14,8 @@ public class MedicalRecord {
     private Integer urineId;
     private Integer biochemistryId;
     private Integer patientId;
+    private String patientFirstName;
+    private String patientLastName;
     private Integer userId;
     private Timestamp createdTime;
 }
