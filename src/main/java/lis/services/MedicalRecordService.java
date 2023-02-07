@@ -12,4 +12,5 @@ public interface MedicalRecordService extends CrudService<Integer> {
     List<MedicalRecord> getAllByPatientId(Integer id);
     MedicalRecord validate(Integer id) throws NotFoundException;
     List<MedicalRecord> getAllInvalidRecords();
+    <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass);
 }

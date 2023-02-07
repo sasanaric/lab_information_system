@@ -28,10 +28,10 @@ public class MedicalRecordController {
         return service.findAll(MedicalRecord.class);
     }
 
-   /* @GetMapping
-    Page<MedicalRecord> findAll(Pageable page) {
+    @GetMapping("paginated")
+    public Page<MedicalRecord> findAll(Pageable page) {
        return service.findAll(page, MedicalRecord.class);
-    }*/
+    }
 
     @GetMapping("/{id}")
     public MedicalRecord getById(@PathVariable Integer id) throws NotFoundException {

@@ -35,9 +35,10 @@ public abstract class CrudJpaService<E extends BaseEntity<ID>,ID extends Seriali
         return repository.findAll().stream().map(e -> modelMapper.map(e,resultDtoClass)).collect(Collectors.toList());
     }
 
-    /*public <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass) {
+
+    public <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass) {
         return repository.findAll(page).map(e->modelMapper.map(e,resultDtoClass));
-    }*/
+    }
 
     @Override
     public <T> T findById(ID id, Class<T> resultDtoClass) throws NotFoundException {
