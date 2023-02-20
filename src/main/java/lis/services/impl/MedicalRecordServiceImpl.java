@@ -8,8 +8,13 @@ import lis.models.entities.MedicalRecordEntity;
 import lis.repositories.MedicalRecordRepository;
 import lis.services.MedicalRecordService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,11 +30,46 @@ public class MedicalRecordServiceImpl extends CrudJpaService<MedicalRecordEntity
     }
 
     @Override
+    public List<MedicalRecord> getAll(){
+        return super.findAll(MedicalRecord.class).stream().sorted(new Comparator<MedicalRecord>() {
+            @Override
+            public int compare(MedicalRecord o1, MedicalRecord o2) {
+                return o2.getCreatedTime().compareTo(o1.getCreatedTime());
+            }
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<MedicalRecord> getAllFilteredByTime(Pageable page, String createdTime) {
+        LocalDate date = LocalDate.parse(createdTime);
+        System.out.println(createdTime);
+        List<MedicalRecord> filteredByTime = repository
+                .findAll()
+                .stream()
+                .filter(x -> x.getCreatedTime().toLocalDateTime().toLocalDate().equals(date))
+                .map(m -> modelMapper.map(m, MedicalRecord.class))
+                .collect(Collectors.toList());
+        filteredByTime.stream().forEach(System.out::println);
+        return new PageImpl<>(filteredByTime, page, filteredByTime.size());
+    }
+
+    @Override
+    public Page<MedicalRecord> getAllInvalidPaginated(Pageable page){
+        return new PageImpl<>(getAllInvalidRecords(), page, getAllInvalidRecords().size());
+    }
+
+    @Override
     public List<MedicalRecord> getAllInvalidRecords(){
         return repository
                 .findAll()
                 .stream()
                 .filter(x -> !x.getIsValid().equals("true"))
+                .sorted(new Comparator<MedicalRecordEntity>() {
+                    @Override
+                    public int compare(MedicalRecordEntity o1, MedicalRecordEntity o2) {
+                        return o2.getCreatedTime().compareTo(o1.getCreatedTime());
+                    }
+                })
                 .map(m -> modelMapper.map(m, MedicalRecord.class))
                 .collect(Collectors.toList());
     }
