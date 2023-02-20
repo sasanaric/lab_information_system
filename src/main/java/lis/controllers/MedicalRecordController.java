@@ -40,7 +40,7 @@ public class MedicalRecordController {
 
     @GetMapping("/date-filtered")
     public Page<MedicalRecord> findAll(Pageable page, @RequestParam String createdTime) {
-        System.out.println(page.getPageSize() + "--" + page.getPageNumber());
+       // System.out.println(page.getPageSize() + "--" + page.getPageNumber());
         return service.getAllFilteredByTime(page, createdTime);
     }
 

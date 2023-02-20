@@ -43,25 +43,33 @@ public class MedicalRecordServiceImpl extends CrudJpaService<MedicalRecordEntity
     public Page<MedicalRecord> getAllFilteredByTime(Pageable page, String createdTime) {
         LocalDate date = LocalDate.parse(createdTime);
         System.out.println(createdTime);
+
         List<MedicalRecord> filteredByTime = repository
-                .findAll(page)
+                .findAll()
                 .stream()
                 .filter(x -> x.getCreatedTime().toLocalDateTime().toLocalDate().equals(date))
                 .map(m -> modelMapper.map(m, MedicalRecord.class))
                 .collect(Collectors.toList());
-        filteredByTime.stream().forEach(System.out::println);
-        return new PageImpl<>(filteredByTime, page, filteredByTime.size());
+        int pageSize = page.getPageSize();
+        int start = page.getPageNumber() * pageSize;
+        int end = Math.min((page.getPageNumber() + 1) * pageSize, filteredByTime.size());
+
+
+        return new PageImpl<>(filteredByTime.subList(start, end), page, filteredByTime.size());
     }
 
     @Override
     public Page<MedicalRecord> getAllInvalidPaginated(Pageable page){
-        List<MedicalRecord> filteredByValid = repository
-                .findAll(page)
+        long totalElements = repository.findAll()
                 .stream()
                 .filter(x -> x.getIsValid().equals("false"))
+                .count();
+        List<MedicalRecord> filteredRecords = repository
+                .findByIsValid("false", page)
+                .stream()
                 .map(m -> modelMapper.map(m, MedicalRecord.class))
                 .collect(Collectors.toList());
-        return new PageImpl<>(filteredByValid, page, filteredByValid.size());
+        return new PageImpl<>(filteredRecords, page, totalElements);
     }
 
     @Override
