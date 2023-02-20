@@ -44,7 +44,7 @@ public class MedicalRecordServiceImpl extends CrudJpaService<MedicalRecordEntity
         LocalDate date = LocalDate.parse(createdTime);
         System.out.println(createdTime);
         List<MedicalRecord> filteredByTime = repository
-                .findAll()
+                .findAll(page)
                 .stream()
                 .filter(x -> x.getCreatedTime().toLocalDateTime().toLocalDate().equals(date))
                 .map(m -> modelMapper.map(m, MedicalRecord.class))
@@ -55,7 +55,13 @@ public class MedicalRecordServiceImpl extends CrudJpaService<MedicalRecordEntity
 
     @Override
     public Page<MedicalRecord> getAllInvalidPaginated(Pageable page){
-        return new PageImpl<>(getAllInvalidRecords(), page, getAllInvalidRecords().size());
+        List<MedicalRecord> filteredByValid = repository
+                .findAll(page)
+                .stream()
+                .filter(x -> x.getIsValid().equals("false"))
+                .map(m -> modelMapper.map(m, MedicalRecord.class))
+                .collect(Collectors.toList());
+        return new PageImpl<>(filteredByValid, page, filteredByValid.size());
     }
 
     @Override
