@@ -8,6 +8,8 @@ import lis.models.requests.PatientRequest;
 import lis.services.MedicalRecordService;
 import lis.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +30,11 @@ public class PatientController {
     @GetMapping
     public List<Patient> findAll(){
         return patientService.findAll(Patient.class);
+    }
+
+    @GetMapping("/paginated")
+    public Page<Patient> findAll(Pageable page){
+        return patientService.findAll(page, Patient.class);
     }
 
     @GetMapping("/single-patient/{id}")
