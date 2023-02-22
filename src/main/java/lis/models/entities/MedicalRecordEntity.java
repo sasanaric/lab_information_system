@@ -3,13 +3,17 @@ package lis.models.entities;
 import jakarta.persistence.*;
 import lis.base.BaseEntity;
 import lombok.Data;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.sql.Timestamp;
 import java.util.Objects;
 @Data
 @Entity
-@Table(name = "medical_record", schema = "lab_information_system", catalog = "")
+@Table(name = "medical_record")
+@SQLDelete(sql = "UPDATE medical_record SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 @EntityListeners(AuditingEntityListener.class)
 
 public class MedicalRecordEntity implements BaseEntity<Integer> {
@@ -41,4 +45,7 @@ public class MedicalRecordEntity implements BaseEntity<Integer> {
     @Basic
     @Column(name = "created_time", nullable = true)
     private Timestamp createdTime;
+    @Basic
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted = Boolean.FALSE;
 }

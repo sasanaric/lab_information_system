@@ -44,7 +44,10 @@ public class PatientController {
     public Patient findById(@PathVariable Integer id) throws NotFoundException {
         return patientService.findById(id, Patient.class);
     }
-
+    @GetMapping("/gender/{id}")
+    public Integer getGenderById(@PathVariable Integer id) throws NotFoundException {
+        return patientService.getGenderById(id);
+    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public SinglePatient insert(@RequestBody PatientRequest patientRequest) throws NotFoundException {

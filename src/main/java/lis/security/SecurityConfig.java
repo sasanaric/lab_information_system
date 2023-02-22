@@ -43,6 +43,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/borders/**").permitAll()
+                .requestMatchers("/patients/gender/**").permitAll()
                 .requestMatchers("/medical-records/validate/**").hasAnyAuthority(SecurityConsts.ADMIN,
                         SecurityConsts.DOCTOR)
                 .requestMatchers("/medical-records/**").hasAnyAuthority(SecurityConsts.ADMIN,
