@@ -17,13 +17,13 @@ public class BiochemistryEntity implements BaseEntity<Integer> {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic
-    @Column(name = "s-glucose", nullable = false, precision = 0)
+    @Column(name = "s_glucose", nullable = false, precision = 0)
     private Double sGlucose;
     @Basic
-    @Column(name = "s-urea", nullable = false, precision = 0)
+    @Column(name = "s_urea", nullable = false, precision = 0)
     private Double sUrea;
     @Basic
-    @Column(name = "s-creatinine", nullable = false)
+    @Column(name = "s_creatinine", nullable = false)
     private Integer sCreatinine;
     @OneToOne(mappedBy = "biochemistry")
     private MedicalRecordEntity medicalRecord;

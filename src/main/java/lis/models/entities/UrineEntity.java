@@ -18,7 +18,7 @@ public class UrineEntity implements BaseEntity<Integer> {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic
-    @Column(name = "u-proteins", nullable = false, length = 60)
+    @Column(name = "u_proteins", nullable = false, length = 60)
     private String uProteins;
     @Basic
     @Column(name = "urine_sediment", nullable = false, length = 100)
